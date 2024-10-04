@@ -80,7 +80,7 @@ Widget::Widget(QWidget *parent) : QWidget(parent)
         qDebug() << serverSocket->errorString();
     });
 
-    connect(serverSocket, SIGNAL(readyRead()), SLOT(echoData()));
+    connect(serverSocket, SIGNAL(readyRead()), SLOT(getData()));
 
     setWindowTitle(tr("Chat Client"));
 }
