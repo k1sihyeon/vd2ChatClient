@@ -35,7 +35,7 @@ Widget::Widget(QWidget *parent) : QWidget(parent)
     QPushButton* connectBtn = new QPushButton("connect", this);
     connect(connectBtn, &QPushButton::clicked, [=]{
         serverSocket->connectToHost(serverAddress->text(), serverPort->text().toInt());
-    })
+    });
 
     // 서버 :horizon 가로 레이아웃
     QHBoxLayout* serverLayout = new QHBoxLayout;
