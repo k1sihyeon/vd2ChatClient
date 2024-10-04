@@ -30,6 +30,9 @@ Widget::Widget(QWidget *parent) : QWidget(parent)
     QLineEdit* serverPort = new QLineEdit(this);
     serverPort->setInputMask("00000;_");
     serverPort->setPlaceholderText("Server Port Number");
+    connect(serverPort, &QLineEdit::returnPressed, [=] {
+        serverSocket->connectToHost(serverAddress->text(), serverPort->text().toInt());
+    });
 
     // 서버 연결 버튼
     QPushButton* connectBtn = new QPushButton("connect", this);
@@ -50,6 +53,8 @@ Widget::Widget(QWidget *parent) : QWidget(parent)
 
     // 메시지 입력 줄
     inputLine = new QLineEdit(this);
+    connect(inputLine, SIGNAL(returnPressed()), SLOT(sendData()));
+
     QPushButton* sendBtn = new QPushButton("Send", this);
     connect(sendBtn, SIGNAL(clicked()), SLOT(sendData()));
 
@@ -103,5 +108,6 @@ void Widget::sendData() {
     if (str.length()) {
         QByteArray bytearray = str.toUtf8();
         serverSocket->write(bytearray);
+        inputLine->clear();
     }
 }
